@@ -1,0 +1,17 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit Page - {{ title }}
+{% endblock %}
+
+{% block body %}
+    <div class="col-lg-8">
+        <h1>Edit Page</h1>
+        <form action="{% url 'wiki:submit_edits' title %}" method="post">
+            {% csrf_token %}
+            {{ edit_page_form.as_p }}
+            <input type="submit" value="Save Changes" class="btn btn-primary">
+            <a href="{% url 'wiki:index' %}" class="btn btn-primary">Go to Homepage</a>
+        </form>
+    </div>
+{% endblock %}
