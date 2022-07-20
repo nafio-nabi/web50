@@ -1,0 +1,64 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'all_posts' %}">Schlep List</a>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item me-2">
+                <a class="nav-link share-schlep" href="{% url 'all_posts' %}">See all schleps</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item me-2">
+                <a class="nav-link share-schlep" href="{% url 'new_post' %}">Share your schlep</a>
+            </li>
+            <li class="nav-item me-2">
+                <a class="nav-link bookmark" href="{% url 'bookmarks' %}">Bookmarks</a>
+            </li>
+            {% endif %}
+        </ul>
+        {% if request.path == '/signup/' %}
+        {% elif request.path == '/signin/' %}
+        {% else %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if request.user.is_authenticated %}
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if request.user.cloud_profile_image %}
+                                    <img src="{{ request.user.cloud_profile_image.url }}" alt="{{ request.user.first_name }} {{ request.user.last_name }} profile image" width="32" height="32" class="rounded-circle">
+                                {% else %}
+                                    <img src="https://res.cloudinary.com/dypwfgdml/image/upload/v1658038759/default_profile_image_d05s9u.png" alt="defualt user image" width="32" height="32" class="rounded-circle flex-shrink-0 mb-2">
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" href="{% url 'all_posts' %}">See all schleps</a></li>
+                                {% if request.user.is_authenticated %}
+                                <li class="nav-item me-2">
+                                    <a class="dropdown-item" href="{% url 'new_post' %}">Share your schlep</a>
+                                </li>
+                                <li class="nav-item me-2">
+                                    <a class="dropdown-item" href="{% url 'bookmarks' %}">Bookmarks</a>
+                                </li>
+                                {% endif %}
+                              <li><a class="dropdown-item" href="{% url 'profile' request.user.first_name %}">Profile</a></li>
+                              <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'signup' %}" class="btn btn-primary me-2">Sign up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'signin' %}" class="btn btn-outline-primary me-2">Sign in</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</nav>

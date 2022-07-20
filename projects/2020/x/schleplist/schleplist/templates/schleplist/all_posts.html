@@ -1,0 +1,44 @@
+{% extends "schleplist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Schleplist - All schleps
+{% endblock %}
+
+{% block content %}
+    {% include "schleplist/navbar.html" %}
+    <div class="container col-xxl-6 px-4 py-5">
+        <h1 class="display-5 fw-bold lh-1 mb-4">All Schleps</h1>
+        <div class="list-group w-auto">
+            {% for post in page_obj %}
+            <a href="{% url 'post' post.id %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+              {% if post.user.cloud_profile_image %}
+                <img src="{{ post.user.cloud_profile_image.url }}" alt="{{ post.user.first_name }} {{ post.user.last_name }} profile image" width="50" height="50" class="rounded-circle">
+              {% else %}
+                  <img src="https://res.cloudinary.com/dypwfgdml/image/upload/v1658038759/default_profile_image_d05s9u.png" alt="defualt user image" width="50" height="50" class="rounded-circle flex-shrink-0 mb-2">
+              {% endif %}
+              <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                  <h6 class="mb-1">{{ post.title }}</h6>
+                  <p class="mb-1 opacity-75">{{ post.body|truncatechars:75 }}</p>
+                  <p class="mb-0 opacity-50">Posted by {{ post.user.first_name }}</p>
+                </div>
+                <small class="opacity-50 text-nowrap">{{ post.created_at.date }}</small>
+              </div>
+            </a>
+            {% empty %}
+              <p>No schleps yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <nav aria-label="page navigation example">
+        <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+          {% endif %}
+          {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+          {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

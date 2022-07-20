@@ -1,0 +1,52 @@
+{% extends "schleplist/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Schleplist - {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    {% include "schleplist/navbar.html" %}
+    <div class="container col-xxl-6 px-4 py-5">
+        <div class="row">
+            <div class="col-12 border-bottom">
+                {% if post.user.cloud_profile_image %}
+                    <img src="{{ post.user.cloud_profile_image.url }}" alt="{{ post.user.first_name }} {{ post.user.last_name }} profile image" width="128" height="128" class="rounded-circle flex-shrink-0 mb-2">
+                {% else %}
+                    <img src="https://res.cloudinary.com/dypwfgdml/image/upload/v1658038759/default_profile_image_d05s9u.png" alt="defualt user image" width="128" height="128" class="rounded-circle flex-shrink-0 mb-2">
+                {% endif %}
+                <h3 class="fw-bold lh-1 mb-4 mt-2">{{ post.user.first_name }} {{ post.user.last_name }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-6 fw-bold lh-1 mb-4 mt-4 post-title" id="post-title-{{post.id}}">{{ post.title }}</h1>
+                <input type="text" data-id="{{post.id}}" id="post-title-edit-{{post.id}}" class="form-control text-input mt-4 mb-4" style="display: none;">
+                <p class="post" id="post-content-{{post.id}}">{{ post.body }}</p>
+                <textarea data-id="{{post.id}}" id="post-edit-{{post.id}}" class="form-control textarea mt-4 mb-4" rows="3" style="display: none;"></textarea>
+            </div>
+            {% if request.user.is_authenticated %}
+            <div class="col-12 border-top">
+                <form action="{% url 'bookmarks' %}" method="post">
+                    {% csrf_token %}
+                    {{ bookmark_form.as_p }}
+                    {% if bookmarked %}
+                        <button type="submit" class="btn btn-danger mt-4">Remove bookmark</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary mt-4">Bookmark</button>
+                    {% endif %}
+                </form>
+            </div>
+            {% endif %}
+            <div class="col-12">
+                {% if request.user.id == post.user.id %}
+                    <a class="btn btn-primary mt-2 edit" data-id="{{post.id}}" id="edit-btn-{{post.id}}">Edit</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>       
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'schleplist/app.js' %}"></script>
+{% endblock %}

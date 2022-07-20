@@ -1,0 +1,31 @@
+{% extends "schleplist/layout.html" %}
+
+{% block title %}
+    Schleplist - New post
+{% endblock %}
+
+{% block content %}
+    {% include "schleplist/navbar.html" %}
+    <div class="container col-xxl-6 px-4 py-5">
+        {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+        <h1 class="display-5 fw-bold lh-1 mb-4">Share your schlep</h1>
+        <form class="row g-3" action="{% url 'new_post' %}" method="post">
+            {% csrf_token %}
+            <div class="col-12">
+                {{ new_post_form.title.errors }}
+                <label for="{{ new_post_form.title.id_for_label }}" class="label-form mb-2">Title</label>
+                {{ new_post_form.title }}
+            </div>
+            <div class="col-12">
+                {{ new_post_form.body.errors }}
+                <label for="{{ new_post_form.body.id_for_label }}" class="label-form mb-2">Body</label>
+                {{ new_post_form.body }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Share</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

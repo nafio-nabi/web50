@@ -1,0 +1,41 @@
+@media (max-width: 576px) {
+    .nav-item {
+        margin: 1% 0 1% 0;
+    }
+
+    .share-schlep {
+        display: none;
+    }
+
+    .bookmark {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-item {
+        margin: 1% 0 1% 0;
+    }
+
+    .share-schlep {
+        display: none;
+    }
+
+    .bookmark {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-item {
+        margin: 1% 0 1% 0;
+    }
+
+    .share-schlep {
+        display: none;
+    }
+
+    .bookmark {
+        display: none;
+    }
+}

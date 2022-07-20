@@ -1,0 +1,42 @@
+{% extends "schleplist/layout.html" %}
+
+{% block title %}
+    Schleplist - Sign up
+{% endblock %}
+
+{% block content %}
+    {% include "schleplist/navbar.html" %}
+    <div class="container col-xxl-6 px-4 py-5">
+        {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+        <h1 class="display-5 fw-bold lh-1 mb-4">Create an account</h1>
+        <form class="row g-3" action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            <div class="col-md-6">
+                {{ signup_form.first_name.errors }}
+                <label for="{{ signup_form.first_name.id_for_label }}" class="label-form mb-2">First Name</label>
+                {{ signup_form.first_name }}
+            </div>
+            <div class="col-md-6">
+                {{ signup_form.last_name.errors }}
+                <label for="{{ signup_form.last_name.id_for_label }}" class="label-form mb-2">Last Name</label>
+                {{ signup_form.last_name }}
+            </div>
+            <div class="col-12">
+                {{ signup_form.email.errors }}
+                <label for="{{ signup_form.email.id_for_label }}" class="label-form mb-2">Email</label>
+                {{ signup_form.email }}
+            </div>
+            <div class="col-12">
+                {{ signup_form.password.errors }}
+                <label for="{{ signup_form.password.id_for_label }}" class="label-form mb-2">Password</label>
+                {{ signup_form.password }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Sign up</button>
+                <p class="mt-2">Already have an account? <a href="{% url 'signin' %}">Sign in</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}

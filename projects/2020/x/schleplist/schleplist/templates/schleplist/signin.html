@@ -1,0 +1,32 @@
+{% extends "schleplist/layout.html" %}
+
+{% block title %}
+    Schleplist - Sign in
+{% endblock %}
+
+{% block content %}
+    {% include "schleplist/navbar.html" %}
+    <div class="container col-xxl-6 px-4 py-5">
+        {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endif %}
+        <h1 class="display-5 fw-bold lh-1 mb-4">Sign in</h1>
+        <form class="row g-3" action="{% url 'signin' %}" method="post">
+            {% csrf_token %}
+            <div class="col-12">
+                {{ signin_form.email.errors }}
+                <label for="{{ signin_form.email.id_for_label }}" class="label-form mb-2">Email</label>
+                {{ signin_form.email }}
+            </div>
+            <div class="col-12">
+                {{ signin_form.password.errors }}
+                <label for="{{ signin_form.password.id_for_label }}" class="label-form mb-2">Password</label>
+                {{ signin_form.password }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+                <p class="mt-2">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}
