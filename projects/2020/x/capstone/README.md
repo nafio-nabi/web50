@@ -74,29 +74,29 @@ The files I have commited code to are:
 
 To run the application go through the following steps:
 
-Clone repository:
-```bash
-git clone https://github.com/nafio-nabi/web50.git
-cd web50/projects/2020/x/capstone/
-```
+- Clone repository:
+     ```bash
+     git clone https://github.com/nafio-nabi/web50.git
+     cd web50/projects/2020/x/capstone/
+     ```
 
-Create and activate virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate
-```
+- Create and activate virtual environment:
+     ```bash
+     python -m venv venv
+     source venv/bin/activate
+     ```
 
-Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+- Install dependencies:
+     ```bash
+     pip install -r requirements.txt
+     ```
 
-Run migrations:
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+- Run migrations:
+     ```bash
+     python manage.py makemigrations
+     python manage.py migrate
+     ```
 
-Run development server:
-```bash
-python manage.py runserver
+- Run development server:
+     ```bash
+     python manage.py runserver
